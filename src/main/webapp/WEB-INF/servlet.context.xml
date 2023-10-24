@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc
+       https://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <mvc:annotation-driven/> <!-- annotation-driven : spring mvc 설정을 어노테이션 기반으로 처리한다는 의미 -->
+    <mvc:resources mapping="/resources/**" location="/resources/" /><!-- 이미지,html파일과 같은 정적 파일의 경로 설정 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/view/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+<!--    Formatter를 servlet-context.xml에 적용 -->
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="formatters">
+            <set>
+                <bean class="controller.formatter.LocalDateFormatter"/>
+                <bean class="controller.formatter.CheckboxFormatter"/>
+            </set>
+        </property>
+    </bean>
+    <mvc:annotation-driven conversion-service="conversionService"/>
+<!--    conversionService이라는 빈 등록 후에는 스프링 mvc를 처리할때 <mvc:annotation-driven>에 이를 이용한다는 것을 지정해야함. -->
+
+
+
+    <context:component-scan base-package="controller"/>
+</beans>

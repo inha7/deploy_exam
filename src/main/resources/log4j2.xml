@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="WARN">
+    <appenders>
+        <console name="console" target="SYSTEM_OUT">
+            <patternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </console>
+    </appenders>
+    <loggers>
+<!--        <root level="info">-->
+<!--            <appenderRef ref="Console"/>-->
+<!--        </root>-->
+        <logger name="org.springframework" level="INFO" additivity="false">
+            <appender-ref ref="console"/>
+        </logger>
+        <logger name="sample" level="INFO" additivity="false">
+            <appender-ref ref="console"/>
+        </logger>
+        <logger name="mapper" level="TRACE" additivity="false">
+            <appender-ref ref="console"/>
+        </logger>
+        <root level="INFO" additivity="false">
+            <AppenderRef ref="console"/>
+        </root>
+    </loggers>
+</configuration>
